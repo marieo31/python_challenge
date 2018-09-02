@@ -20,6 +20,7 @@ In addition, your final script should both print the analysis to the terminal an
 import csv
 import logging
 import numpy as np
+from operator import itemgetter
 
 # Logging set-up
 #---------------
@@ -68,9 +69,7 @@ with open(csvpath, newline='',encoding='utf-8') as csvfile:
             names.append(row[2])    # we add the name in the list
             nbVotes.append(1)       # consider its first vote
             
-# let's go crazy and sort the candidates according to the number of votes
-
-            
+         
 # Processing the counted votes (total, pc of votes, winner)
 #----------------------------------------------------------
 # total number of votes
@@ -80,27 +79,29 @@ total2 = sum(nbVotes)    # total nb of votes by suming up the global results
 if total != total2: # let's check if the results are consistents
     print("Something went wrong: the global results don't match the counties results.")
     exit()
+    
 # Global results (pc of votes and winner)    
-pc_votes = [votes/total*100 for votes in nbVotes] # percents of votes for each candidate
+pcVotes = [votes/total*100 for votes in nbVotes] # percents of votes for each candidate
 winner = names[np.argmax(nbVotes)]  # Name of the winner
+
 # calculating the pc of votes per county
 for county in counties:
     counties[county]['total'] = sum(counties[county]['nbVotes'])
-    counties[county]['pc_votes'] = [votes/counties[county]['total']*100 for votes in counties[county]['nbVotes']]
+    counties[county]['pcVotes'] = [votes/counties[county]['total']*100 for votes in counties[county]['nbVotes']]
 
 # Printing the results
 #--------------------
-# first we can zip the values
-results = zip(names, pc_votes, nbVotes)
+# first we can zip the values and sort them according to the number of votes
+results = sorted(zip(names, pcVotes, nbVotes), key=itemgetter(2), reverse=True)
 logging.info("----------------------")
 logging.info("Election results")
 logging.info("----------------------\n")
 logging.info('Global results:')
 logging.info('----------------------')
-logging.info(f'  ->Total votes: {total}')
+logging.info(f'  -> Total votes: {total}')
 # results for each candidate
 for res in results:
-    logging.info("  ->%s: %.1f%% (%i)"%(res))
+    logging.info("  -> %s: %.2f%% (%i)"%(res))
 logging.info('----------------------')    
 # Winner
 logging.info(f'>>> Winner: {winner}')
@@ -110,8 +111,8 @@ logging.info('---------------------')
 for county in counties:
     logging.info(f' Results for {county}: ')
     logging.info(f"  -> Total votes: {counties[county]['total']}")
-    # ziping the results for the current county
-    local_results = zip(counties[county]['names'],  counties[county]['pc_votes'], counties[county]['nbVotes'])
+    # ziping the results for the current county (and sorting them according to the number of votes
+    local_results = sorted(zip(counties[county]['names'],  counties[county]['pcVotes'], counties[county]['nbVotes']), key=itemgetter(2), reverse=True)
     for res in local_results:
-        logging.info("  -> %s: %.1f%% (%i)"%(res))
+        logging.info("  -> %s: %.2f%% (%i)"%(res))
     logging.info('-------------------')
