@@ -1,0 +1,50 @@
+----------------------
+Election results
+----------------------
+Global results
+Total votes: 3521001
+Khan: 63.0% (2218231)
+Correy: 20.0% (704200)
+Li: 14.0% (492940)
+O'Tooley: 3.0% (105630)
+----------------------
+>>> Winner: Khan
+----------------------
+
+ Regional results
+---------------------
+ Results for Marsh: 
+  -> Total votes: 2265957
+  -> Khan: 63.0% (1427142)
+  -> Correy: 20.0% (453015)
+  -> Li: 14.0% (317651)
+  -> O'Tooley: 3.0% (68149)
+-------------------
+ Results for Queen: 
+  -> Total votes: 697203
+  -> Khan: 63.0% (439494)
+  -> Correy: 20.0% (139554)
+  -> O'Tooley: 3.0% (20850)
+  -> Li: 14.0% (97305)
+-------------------
+ Results for Bamoo: 
+  -> Total votes: 348658
+  -> Correy: 20.0% (69752)
+  -> O'Tooley: 3.0% (10433)
+  -> Li: 14.0% (48639)
+  -> Khan: 63.1% (219834)
+-------------------
+ Results for Trandee: 
+  -> Total votes: 104617
+  -> Khan: 63.0% (65939)
+  -> Correy: 19.9% (20824)
+  -> Li: 14.1% (14741)
+  -> O'Tooley: 3.0% (3113)
+-------------------
+ Results for Raffah: 
+  -> Total votes: 104566
+  -> Khan: 62.9% (65822)
+  -> Li: 14.0% (14604)
+  -> Correy: 20.1% (21055)
+  -> O'Tooley: 3.0% (3085)
+-------------------
