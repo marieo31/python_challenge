@@ -1,6 +1,8 @@
+# -*- coding: utf-8 -*-
+
 """
 date: 2018-09-01
-author: Marie-Oceane
+author: Marie-Océane
 description: In this challenge, you are tasked with creating a Python script for analyzing the financial records of your company. You will give a set of financial data called budget_data.csv. The dataset is composed of two columns: Date and Profit/Losses. (Thankfully, your company has rather lax standards for accounting so the records are simple.)
 Your task is to create a Python script that analyzes the records to calculate each of the following:
 -> The total number of months included in the dataset
@@ -21,6 +23,7 @@ nb_month = 0        # nb of month included in the dataset
 total = 0           # total net amount of profit/losses over the entire period
 months = []         # list of the months
 profits_losses = [] # list of the profits/losses
+changes = []        # changes
 
 # Logging set-up
 #---------------
@@ -48,6 +51,13 @@ with open(csvpath, newline='',encoding='utf-8') as csvfile:
         #Incrementing the number of months and the total amount of profits/losses
         nb_month += 1
         total = total + float(row[1])
+
+# Calculating the changes
+#------------------------
+changes = [a2 - a1 for a2, a1 in zip(profits_losses[1:], profits_losses)]
+# for ii in range(1,len(profits_losses)):    
+#     changes.append(profits_losses[ii] - profits_losses[ii-1])
+
         
 # Printing the total number of months and profit/losses into the logfile
 #-----------------------------------------------------------------------
@@ -58,11 +68,14 @@ logging.info("Total: $%.1f"%(total))
 
 # Calculate the Average change and finding the extreme values
 #------------------------------------------------------------
-avg = np.mean(profits_losses)
+avg = np.mean(changes)
 # Top profit month and value (strored in a tuple)
-top_profit = ( months[np.argmax(profits_losses)], np.max(profits_losses))
+top_profit = max(zip(months[1:],changes),key=lambda x:x[1])
+# top_profit2 = ( months[np.argmax(changes)+1], np.max(changes))
+
 # same for the top loss
-top_loss = (months[np.argmin(profits_losses)], np.min(profits_losses))
+top_loss = min(zip(months[1:],changes),key=lambda x:x[1])
+# top_loss2 = (months[np.argmin(profits_losses)], np.min(profits_losses))
 
 
 # Printing the avg and extreme values into the log file
